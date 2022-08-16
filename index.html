@@ -1,0 +1,283 @@
+<!-- A: Mobile -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="http://fonts.cdnfonts.com/css/geometria" rel="stylesheet">
+    <link href="http://fonts.cdnfonts.com/css/montserrat" rel="stylesheet">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <script>
+            //adobe.target.trackEvent({ mbox: 'activityVisit_popupSimpleScore' });
+        </script>
+        <style>
+            /*
+                320px — 480px: Mobile devices.
+                481px — 768px: iPads, Tablets.
+                769px — 1024px: Small screens, laptops.
+                1025px — 1200px: Desktops, large screens.
+                1201px and more — Extra large screens, TV.
+            */
+
+            /* Mobile 320px - 480px */
+            .overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 0;
+            }
+
+            .popup {
+                z-index: 100;
+            }
+
+            .popup * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+                border: none;
+                width: 100%;
+            }
+
+            .popup__wrapper {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                /*width: 62vw;*/
+                max-width: 240px;
+                background: #fff;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            }
+
+            .popup__header {
+                background: #021d5f;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                position: relative;
+            }
+
+            .popup__close {
+                position: absolute;
+                top: 8px;
+                right: 8px;
+                width: 16px;
+                height: 16px;
+            }
+
+            .popup__close::before,
+            .popup__close::after {
+                content: '';
+                display: block;
+                background: #3361b8;
+                margin-bottom: 4px;
+                border-radius: 2px;
+                width: 16px;
+                height: 4px;
+                position: absolute;
+                left: 50%;
+                top: 0;
+                cursor: pointer;
+            }
+
+            .popup__close::before {
+                transform: rotate(45deg) translate(-1px, 10px);
+            }
+
+            .popup__close::after {
+                transform: rotate(-45deg) translate(-10px, -1px);
+            }
+
+            .popup__body {
+                width: 100%;
+                padding: 15px 10px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .popup__title {
+                width: 100%;
+                color: #0f191e;
+                font-family: Geometria;
+                font-weight: 500;
+                letter-spacing: -1px;
+                text-align: center;
+                font-size: 18px;
+                line-height: 28px;
+                margin: 0 0 5px 0;
+            }
+
+            .popup__content {
+                color: #0f191e;
+                font-family: Montserrat;
+                text-align: center;
+                align-content: center;
+                letter-spacing: unset;
+                width: unset;
+                font-size: 11px;
+                margin: 0 0 10px 0;
+                line-height: 17px;
+            }
+
+            .popup__content strong {
+                font-weight: 600;
+            }
+
+            .popup__btn {
+                width: 100%;
+                color: #ffffff;
+                font-family: Geometria;
+                font-size: 13px;
+                font-weight: 500;
+                letter-spacing: 0.09px;
+                line-height: 18px;
+                text-align: center;
+                text-decoration: none;
+                line-height: 48px;
+                border-radius: 4px;
+                background-color: #05be50;
+                display: block;
+            }
+
+            /* Galaxy Fold 0px - 319px */
+            @media (max-width: 319px) {
+                .popup__title {
+                    font-size: 18px;
+                }
+            }
+
+            /* Tablet 481px - 767px */
+            @media (min-width: 481px) {
+                .popup__wrapper {
+                    max-width: 283px;
+                }
+
+                .popup__title {
+                    font-size: 19px;
+                }
+
+                .popup__btn {
+                    font-size: 15px;
+                }
+            }
+
+            /* Adaptado para Laptops (Small Screens) 768px a 1024px */
+            @media (min-width: 768px) {
+                .popup__wrapper {
+                    max-width: 310px;
+                }
+
+                .popup__body {
+                    padding: 20px 15px 24px;
+                }
+
+                .popup__title {
+                    font-size: 24px;
+                    line-height: 28px;
+                    width: 96%;
+                    margin-bottom: 10px;
+                }
+
+                .popup__content {
+                    width: 86%;
+                    margin-bottom: 18px;
+                    font-size: 12px;
+                }
+
+                .popup__btn {
+                    font-size: 15px;
+                    line-height: 40px;
+                    width: 90%;
+                }
+            }
+        </style>
+
+        <script>
+            "use strict";
+
+            var popupJS = /** @class */ (function () {
+                function popupJS(options) {
+                    options.link.target = options.link.target || '_self';
+                    this.elementOverlay = this.overlay();
+                }
+
+
+                popupJS.prototype.events = function (close) {
+                    var body = document.querySelector('body') || document.body;
+                    body.classList.add('tg');
+                    var overlay = this.elementOverlay;
+                    
+                    var closePopup = function (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        overlay.classList.add('animate__fadeOut');
+                        overlay.remove();
+                        var popup = document.querySelector('#popup-score-cuenta');
+                        popup.remove();
+                    };
+                    close.addEventListener('click', closePopup)
+                };
+
+
+                popupJS.prototype.show = function () {
+                    var overlay = this.elementOverlay;
+                    var popup = document.createElement('div');
+                    popup.classList.add('popup');
+                    popup.id = 'popup-score-cuenta';
+                    popup.innerHTML = "\n    <div class=\"popup__wrapper\">\n      <div class=\"popup__header\">\n      <div class=\"popup__close\"></div>\n <picture>\n <source srcset =\"".concat(options.imgDesktop1x, ", ").concat(options.imgDesktop2x, " 2x\" media=\"(min-width: 768px)\">\n        <img srcset=\"").concat(options.imgMobile1x, ", ").concat(options.imgMobile2x, " 2x\" alt=\"").concat(options.title, "\">\n      </picture>\n    </div>\n    <div class=\"popup__body\">\n      <div class=\"popup__title\">").concat(options.title, "</div>\n      <div class=\"popup__content\">").concat(options.content, "</div>\n      <a class=\"popup__btn\" href=\"").concat(options.link.url, "\" target=\"").concat(options.link.target, "\" title=\"").concat(options.link.text, "\">").concat(options.link.text, "</a>\n    </div>\n    </div>");
+                    var close = popup.querySelector('.popup__close');
+                    this.events(close);
+                    document.body.appendChild(overlay);
+                    this.events(overlay);
+                    overlay.parentNode.appendChild(popup);
+
+                    //Close Popup after 9 segs
+                    setTimeout(() => {
+                        popup.remove();
+                        overlay.remove();
+                    }, 9000);
+                };
+                popupJS.prototype.overlay = function () {
+                    var overlay = document.createElement('div');
+                    overlay.classList.add('overlay');
+                    return overlay;
+                };
+                return popupJS;
+            }());
+            var options = {
+                title: '¡Tu cuenta ya está lista!',
+                //title: '¡Gratis! Nueva Tarjeta Digital Interbank',
+                content: 'Te enviamos la Tarjeta Digital y número de cuenta a tu e-mail. Con estos datos podrás entrar a Interbank APP, Banca por Internet y hacer transferencias gratuitas sin ir a tiendas.',
+                //content: 'Con estos datos podrás entrar a Interbank APP, Banca por Internet y hacer transferencias gratuitas sin ir a tiendas. <br><b>¿La quieres?</b>',
+                link: {
+                    url: 'https://swec8.app.goo.gl/uy1b',
+                    text: 'Descarga el APP aquí',
+                    //text: 'Enviar tarjeta a mi e-mail',
+                    target: '_blank',
+                },
+                imgDesktop1x: 'https://content-us-2.content-cms.com/9b3f67ef-5a9f-4acc-8ce8-bcc27fa681c7/dxdam/42/4284fd3e-9c31-49f4-82fb-2f8421ca2b4a/608x320.png',
+                imgDesktop2x: 'https://content-us-2.content-cms.com/9b3f67ef-5a9f-4acc-8ce8-bcc27fa681c7/dxdam/ae/ae0d6c53-dd18-4625-8fee-e8fc9503f74f/838x330.png',
+                imgMobile1x: 'https://content-us-2.content-cms.com/9b3f67ef-5a9f-4acc-8ce8-bcc27fa681c7/dxdam/21/219a0b25-b957-432c-91d2-81019af613d9/304x160.png',
+                imgMobile2x: 'https://content-us-2.content-cms.com/9b3f67ef-5a9f-4acc-8ce8-bcc27fa681c7/dxdam/86/8651ed2a-3c09-471e-bfcf-2e66fc28b36c/416x165.png',
+            };
+            var popup = new popupJS(options);
+            popup.show();
+
+
+        </script>
+
+    </div>
+</body>
+
+</html>
